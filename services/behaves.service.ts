@@ -3,7 +3,7 @@
 import { Behave } from "@/models/behave";
 import { cookies } from "next/headers";
 
-const BASE_URL = "http://localhost:4575";
+const BASE_URL = process.env.API_URL;
 
 async function getToken(): Promise<string> {
   const cookiesBrowser = await cookies();

@@ -8,7 +8,7 @@ export default function LoginPage() {
 
     const password = formData.get("password");
 
-    const res = await fetch("http://localhost:4575/keys", {
+    const res = await fetch(`${process.env.API_URL}/keys`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
