@@ -16,6 +16,7 @@ export default function HomePage({
   const [openModal, setOpenModal] = useState(false);
   const [behavesList, setBehaveList]=useState(behaves);
   const [itemsList, setItemsList]=useState(items);
+  const [showDoneItems, setShowDoneItems]=useState(true);
 
   function setBehaveModalHandler(visible:boolean):void{
     setOpenModal(visible);
@@ -24,9 +25,9 @@ export default function HomePage({
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-black w-full">
 
-      <Navbar setBehaveModal={setBehaveModalHandler} />
+      <Navbar setBehaveModal={setBehaveModalHandler} showDoneItems={showDoneItems} setShowDoneItems={setShowDoneItems}/>
       <div className="overflow-x-auto pt-4">
-        <Columns behaves={behavesList} items={itemsList} setItemsList={setItemsList} setBehaveList={setBehaveList}/>
+        <Columns behaves={behavesList} items={itemsList} setItemsList={setItemsList} setBehaveList={setBehaveList} showDoneItems={showDoneItems}/>
       </div>
 
       {openModal && (

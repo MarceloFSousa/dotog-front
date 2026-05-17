@@ -2,11 +2,12 @@ import { Behave } from "@/models/behave";
 import { Item } from "@/models/item";
 import Column from "./Column";
 
-export default function Columns({ behaves, items, setItemsList, setBehaveList }: { behaves: Behave[], items: Item[], setItemsList: Function, setBehaveList: Function }) {
+export default function Columns({ behaves, items, setItemsList, setBehaveList, showDoneItems }: 
+  { behaves: Behave[], items: Item[], setItemsList: Function, setBehaveList: Function, showDoneItems:boolean }) {
   return (
     <div className="flex w-full px-6 h-full gap-6 pb-6">
       {behaves.map((behave) => (
-        <Column key={behave.id} behave={behave} items={items} setItemsList={setItemsList} setBehaveList={setBehaveList} />
+        <Column key={behave.id} behave={behave} items={items} setItemsList={setItemsList} setBehaveList={setBehaveList} showDoneItems={showDoneItems}/>
       ))}
     </div>
   );

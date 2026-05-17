@@ -2,20 +2,23 @@ import { Behave } from "@/models/behave";
 import { Item } from "@/models/item";
 import { ItemComponent } from "./ItemComponent";
 import { NewItemComponent } from "./NewItemComponent";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { X } from "lucide-react";
 import { useBehave } from "@/hooks/use-behave";
+import { it } from "node:test";
 
 export default function Column({
   behave,
   items,
   setItemsList,
   setBehaveList,
+  showDoneItems
 }: {
   behave: Behave;
   items: Item[];
   setItemsList: Function;
   setBehaveList: Function;
+  showDoneItems:boolean
 }) {
   const [showConfirm, setShowConfirm] = useState(false);
   const { isLoading, deleteBehaveFunction } = useBehave();
@@ -26,6 +29,11 @@ export default function Column({
       setShowConfirm(false);
     }
   }
+const visibleItems = useMemo(
+  () => items.filter((item) => item.behaveId === behave.id && (item.donePercent < 100 || showDoneItems)),
+  [items, behave.id, showDoneItems]
+);
+
 
   return (
     <div className="min-w-60 md:min-w-90 bg-white dark:bg-zinc-900 rounded-xl p-4 shadow h-full">
@@ -40,9 +48,7 @@ export default function Column({
       </div>
       <NewItemComponent behaveId={behave.id} setItemsList={setItemsList} />
       <div className="mt-3 space-y-3">
-        {items
-          .filter((item) => item.behaveId === behave.id)
-          .map((item) => (
+        {visibleItems.map((item) => (
             <ItemComponent
               key={item.id}
               item={item}
